@@ -22,7 +22,7 @@ select {
     padding: 3px;
     width: 201.5px;
     font-family: W95;
-    font-size: 16px;
+    font-size: 20px;
     border-top: 2px solid #84888c;
     border-left: 2px solid #84888c;
     border-bottom: none;
@@ -64,11 +64,10 @@ select:disabled:hover {
 
 .FakeButton {
     float: right;
-    display: inline-block;
     width: 20px;
     height: 16px;
     background-color: #c0c4c8;
-    margin-right: 3px;
+    margin-right: 4px;
     border-top: 1px solid #f6f7f7;
     border-left: 1px solid #f6f7f7;
     border-bottom: 1px solid #84888c;
@@ -100,7 +99,11 @@ select:disabled:hover {
     padding: 6px;
 }
 
-.SelectBox:hover {
+.SelectBox p{
+    text-decoration: underline;
+}
+
+.SelectBox p:hover {
     cursor: help;
 }
 
@@ -113,7 +116,7 @@ select:disabled:hover {
     border-left: 2px solid #f6f7f7;
     border-bottom: 2px solid #84888c;
     border-right: 2px solid #84888c;
-    background-color: green;
+    background-color: transparent;
 }
 
 .OperationList {
@@ -125,6 +128,22 @@ select:disabled:hover {
     padding: 3px;
     background-color: #fcfcfc;
     color: #000000;
+    overflow-y: auto;
+}
+
+.OperationList::-webkit-scrollbar{
+    width: 18px;
+}
+.OperationList::-webkit-scrollbar-track{
+    background-color: #dee0e2;
+}
+.OperationList::-webkit-scrollbar-thumb{
+    background-color: #c0c4c8;
+    border-top: 2px solid #f6f7f7;
+    border-left: 2px solid #f6f7f7;
+    border-bottom: 2px solid #84888c;
+    border-right: 2px solid #84888c;
+
 }
 
 .OperationList button {

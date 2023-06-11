@@ -11,7 +11,7 @@
     <script src="/scripts/windowloader.js"></script>
     <script src="/scripts/actors/helpingtips.js"></script>
     
-    <script src="/scripts/actors/family.js"></script>
+    <script src="/scripts/actors/colorpicker.js"></script>
 
     <meta charset="utf-8" />
 </head>
@@ -27,52 +27,59 @@
 
         <div class="OperationBody">
             <div class="OperationBoxes">
-                <div class="SelectBox" style="margin-top:0px;"
-                onmouseover="ShowTips(3)"
-                onmouseleave="ShowTips(-1)">
-                    <p>Colour</p>
-                    <div class="PreviewSquare"></div>
+                <div class="SelectBox" style="margin-top:0px;">
+                    <p
+                    onmouseover="ShowTips(3)"
+                    onmouseleave="ShowTips(-1)">Colour</p>
+                    <div class="PreviewSquare" id="PreviewSquare"></div>
                 </div>
 
-                <div class="SelectBox"
-                onmouseover="ShowTips(4)"
-                onmouseleave="ShowTips(-1)">
-                    <p>Hue Shift</p>
+                <div class="SelectBox">
+                    <p
+                    onmouseover="ShowTips(4)"
+                    onmouseleave="ShowTips(-1)">Hue Shift</p>
                     <div>
                         <select>
                             <option disabled selected style="display:none;"></option>
-                            <option>Option 1</option>
-                            <option>Option 2</option>
+                            <option>Ultra-narrow</option>
+                            <option>Narrow</option>
+                            <option>Normal</option>
+                            <option>Wide</option>
+                            <option>Ultra-wide</option>
                         </select>
                     </div>
 
                 </div>
 
-                <div class="SelectBox"
-                onmouseover="ShowTips(5)"
-                onmouseleave="ShowTips(-1)">
-                    <p>Temperature</p>
+                <div class="SelectBox">
+                    <p
+                    onmouseover="ShowTips(5)"
+                    onmouseleave="ShowTips(-1)">Temperature</p>
                     <select>
                         <option disabled selected style="display:none"></option>
-                        <option>Option 1</option>
-                        <option>Option 2</option>
+                        <option>Colder</option>
+                        <option>Hotter</option>
                     </select>
 
                 </div>
 
-                <div class="SelectBox" style="margin-bottom:0px;"
-                onmouseover="ShowTips(6)"
-                onmouseleave="ShowTips(-1)">
-                    <p>Other Colors</p>
+                <div class="SelectBox" style="margin-bottom:0px;">
+                    <p
+                    onmouseover="ShowTips(6)"
+                    onmouseleave="ShowTips(-1)">Other Colors</p>
                     <select>
                         <option disabled selected style="display:none"></option>
-                        <option>Option 1</option>
-                        <option>Option 2</option>
+                        <option>None</option>
+                        <option>Brighter</option>
+                        <option>Darker</option>
                     </select>
                     <select disabled>
                         <option disabled selected style="display:none"></option>
-                        <option>Option 1</option>
-                        <option>Option 2</option>
+                        <option>Analogous</option>
+                        <option>Complementary</option>
+                        <option>Split complementary</option>
+                        <option>Triadic</option>
+                        <option>Tetradic</option>
                     </select>
 
                 </div>
