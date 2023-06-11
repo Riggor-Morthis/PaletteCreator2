@@ -4,6 +4,12 @@
 <head>
     <title>Palette Creator 2</title>
     <link rel="stylesheet" type="text/css" href="/css/w95.css" />
+    
+    <script src="/scripts/data/colors.js"></script>
+    <script src="/scripts/data/tips.js"></script>
+
+    <script src="/scripts/windowloader.js"></script>
+    <script src="/scripts/actors/helpingtips.js"></script>
 
     <meta charset="utf-8" />
 </head>
@@ -19,12 +25,16 @@
 
         <div class="OperationBody">
             <div class="OperationBoxes">
-                <div class="SelectBox" style="margin-top:0px;">
+                <div class="SelectBox" style="margin-top:0px;"
+                onmouseover="ShowTips(3)"
+                onmouseleave="ShowTips(-1)">
                     <p>Colour</p>
                     <div class="PreviewSquare"></div>
                 </div>
 
-                <div class="SelectBox">
+                <div class="SelectBox"
+                onmouseover="ShowTips(4)"
+                onmouseleave="ShowTips(-1)">
                     <p>Hue Shift</p>
                     <div>
                         <select>
@@ -36,7 +46,9 @@
 
                 </div>
 
-                <div class="SelectBox">
+                <div class="SelectBox"
+                onmouseover="ShowTips(5)"
+                onmouseleave="ShowTips(-1)">
                     <p>Temperature</p>
                     <select>
                         <option disabled selected style="display:none"></option>
@@ -46,7 +58,9 @@
 
                 </div>
 
-                <div class="SelectBox" style="margin-bottom:0px;">
+                <div class="SelectBox" style="margin-bottom:0px;"
+                onmouseover="ShowTips(6)"
+                onmouseleave="ShowTips(-1)">
                     <p>Other Colors</p>
                     <select>
                         <option disabled selected style="display:none"></option>
@@ -76,7 +90,9 @@
                 <p id="TipsText"></p>
             </div>
 
-            <button class="ApplyButton" onclick="location.href='/HomeController/Test/'">Apply</button>
+            <button class="ApplyButton" disabled
+            onmouseover="ShowTips(7)"
+            onmouseleave="ShowTips(-1)">Apply</button>
         </div>
     </div>
 </body>
