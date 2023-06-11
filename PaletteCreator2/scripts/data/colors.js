@@ -14,7 +14,7 @@ class Shade {
         this.value = v;
     }
 
-    ToRgb() {
+    ToHex() {
         var rgb = [0, 0, 0];
 
         var C = this.value * this.saturation;
@@ -29,10 +29,19 @@ class Shade {
         else rgb = [C, 0, X];
 
         var RGB = [(rgb[0] + m) * 255, (rgb[1] + m) * 255, (rgb[2] + m) * 255];
+        RGB = [this.Clamp(Math.round(RGB[0]), 0, 255),
+        this.Clamp(Math.round(RGB[1]), 0, 255),
+        this.Clamp(Math.round(RGB[2]), 0, 255)];
 
-        return 'rgb(' + this.Clamp(Math.round(RGB[0]), 0, 255) +
-        ', ' + this.Clamp(Math.round(RGB[1]), 0, 255) +
-        ', ' + this.Clamp(Math.round(RGB[2]), 0, 255) + ')';
+        var rString = RGB[0].toString(16);
+        if(rString.length < 2) rString = "0" + rString;
+        var gString = RGB[1].toString(16);
+        if(gString.length < 2) gString = "0" + gString;
+        var bString = RGB[2].toString(16);
+        if(bString.length < 2) bString = "0" + bString;
+        
+
+        return "#" + rString + gString + bString;
     }
 
     FromFakeHSV(h, s, v) {

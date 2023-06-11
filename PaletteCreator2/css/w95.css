@@ -108,8 +108,10 @@ select:disabled:hover {
 }
 
 .PreviewSquare {
-    height: 30px;
-    width: 30px;
+    display: block;
+    padding: 0px;
+    height: 35px;
+    width: 35px;
     margin-left: auto;
     margin-right: auto;
     border-top: 2px solid #f6f7f7;
@@ -117,6 +119,10 @@ select:disabled:hover {
     border-bottom: 2px solid #84888c;
     border-right: 2px solid #84888c;
     background-color: transparent;
+}
+
+.PreviewSquare:hover{
+    cursor: pointer;
 }
 
 .OperationList {

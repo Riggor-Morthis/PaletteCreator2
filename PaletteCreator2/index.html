@@ -10,7 +10,6 @@
 
     <script src="/scripts/windowloader.js"></script>
     <script src="/scripts/actors/helpingtips.js"></script>
-    
     <script src="/scripts/actors/colorpicker.js"></script>
 
     <meta charset="utf-8" />
@@ -31,7 +30,9 @@
                     <p
                     onmouseover="ShowTips(3)"
                     onmouseleave="ShowTips(-1)">Colour</p>
-                    <div class="PreviewSquare" id="PreviewSquare"></div>
+                    <input type="color" class="PreviewSquare" id="PreviewSquare"
+                    onmouseover="ShowTips(2)"
+                    onmouseleave="ShowTips(-1)">
                 </div>
 
                 <div class="SelectBox">
