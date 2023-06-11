@@ -1,0 +1,198 @@
+@font-face {
+    font-family: W95;
+    src: url("/css/fonts/w95fa.woff2");
+}
+
+body {
+    background-color: #56a8a8;
+    font-family: W95;
+    font-size: 22px;
+    color: #000000;
+}
+
+p {
+    display: inline;
+}
+
+select {
+    display: inline-block;
+    background-color: #fcfcfc;
+    margin-top: 6px;
+    margin-bottom: 6px;
+    padding: 3px;
+    width: 201.5px;
+    font-family: W95;
+    font-size: 16px;
+    border-top: 2px solid #84888c;
+    border-left: 2px solid #84888c;
+    border-bottom: none;
+    border-right: none;
+    outline: none;
+}
+
+select:hover {
+    cursor: pointer;
+}
+
+select:disabled:hover {
+    cursor: not-allowed;
+}
+
+.WindowBody {
+    display: block;
+    max-width: 455px;
+    max-height: 455px;
+    background-color: #c0c4c8;
+    border-top: 2px solid #fcfcfc;
+    border-left: 2px solid #fcfcfc;
+    border-bottom: 2px solid #000000;
+    border-right: 2px solid #000000;
+}
+
+.WindowHeader {
+    margin: 3px;
+    height: 22px;
+    padding-top: 4px;
+    padding-bottom: 4px;
+    background-color: #0015a4;
+    color: #fcfcfc;
+}
+
+.WindowHeader p {
+    margin-left: 6px;
+}
+
+.FakeButton {
+    float: right;
+    display: inline-block;
+    width: 20px;
+    height: 16px;
+    background-color: #c0c4c8;
+    margin-right: 3px;
+    border-top: 1px solid #f6f7f7;
+    border-left: 1px solid #f6f7f7;
+    border-bottom: 1px solid #84888c;
+    border-right: 1px solid #84888c;
+}
+
+.OperationBody {
+    display: flex;
+    height: 363px;
+    margin-top: 8px;
+    margin-bottom: 8px;
+}
+
+.OperationBoxes {
+    display: inline-block;
+    width: 219.5px;
+    height: 373px;
+    margin-left: 5px;
+    margin-right: 5px;
+}
+
+.SelectBox {
+    margin-top: 10px;
+    margin-bottom: 10px;
+    border-top: 2px solid #f6f7f7;
+    border-left: 2px solid #f6f7f7;
+    border-bottom: 2px solid #84888c;
+    border-right: 2px solid #84888c;
+    padding: 6px;
+}
+
+.SelectBox:hover {
+    cursor: help;
+}
+
+.PreviewSquare {
+    height: 30px;
+    width: 30px;
+    margin-left: auto;
+    margin-right: auto;
+    border-top: 2px solid #f6f7f7;
+    border-left: 2px solid #f6f7f7;
+    border-bottom: 2px solid #84888c;
+    border-right: 2px solid #84888c;
+    background-color: green;
+}
+
+.OperationList {
+    display: inline-block;
+    width: 219.5px;
+    height: 367px;
+    margin-left: 5px;
+    margin-right: 5px;
+    padding: 3px;
+    background-color: #fcfcfc;
+    color: #000000;
+}
+
+.OperationList button {
+    width: 100%;
+    background-color: transparent;
+    font-family: W95;
+    font-size: 18px;
+    color: #000000;
+    margin: 0px;
+    border: none;
+    padding: 3px;
+    text-align: left;
+}
+
+.OperationList button:hover {
+    cursor: pointer;
+    background-color: #0015a4;
+    color: #fcfcfc;
+}
+
+.WindowFooter {
+    display: inline-flex;
+    margin: 3px;
+    height: 40px;
+}
+
+.TipBox {
+    height: 23px;
+    width: 310px;
+    margin: 5px;
+    border-bottom: 2px solid #f6f7f7;
+    border-right: 2px solid #f6f7f7;
+    border-top: 2px solid #84888c;
+    border-left: 2px solid #84888c;
+    padding-bottom: 2px;
+    text-align: left;
+    font-family: W95;
+    font-size: 22px;
+    color: #000000;
+}
+
+.TipBox p {
+    margin-left: 3px;
+    padding-top: 0px;
+}
+
+.ApplyButton {
+    width: 116px;
+    height: 30px;
+    margin: 5px;
+    border-top: 2px solid #f6f7f7;
+    border-left: 2px solid #f6f7f7;
+    border-bottom: 2px solid #84888c;
+    border-right: 2px solid #84888c;
+    padding-bottom: 2px;
+    text-align: center;
+    font-family: W95;
+    font-size: 22px;
+}
+
+.ApplyButton:disabled {
+    color: #84888c;
+    background-color: #c0c4c8;
+    cursor: not-allowed;
+}
+
+.ApplyButton:enabled {
+    color: #000000;
+    background-color: #c0c4c8;
+    cursor: pointer;
+}
