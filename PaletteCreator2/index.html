@@ -11,6 +11,8 @@
     <script src="/scripts/windowloader.js"></script>
     <script src="/scripts/actors/helpingtips.js"></script>
     <script src="/scripts/actors/colorpicker.js"></script>
+    <script src="/scripts/actors/paletteparameters.js"></script>
+    <script src="/scripts/actors/palettecreator.js"></script>
 
     <meta charset="utf-8" />
 </head>
@@ -18,6 +20,7 @@
 <body>
     <div class="WindowBody">
         <div class="WindowHeader">
+            <img src="/pictures/icon.png">
             <p>Palette Creator 2</p>
             <div class="FakeButton"></div>
             <div class="FakeButton"></div>
@@ -40,7 +43,7 @@
                     onmouseover="ShowTips(4)"
                     onmouseleave="ShowTips(-1)">Hue Shift</p>
                     <div>
-                        <select>
+                        <select onchange="ChangeHueShift(this)">
                             <option disabled selected style="display:none;"></option>
                             <option>Ultra-narrow</option>
                             <option>Narrow</option>
@@ -56,7 +59,7 @@
                     <p
                     onmouseover="ShowTips(5)"
                     onmouseleave="ShowTips(-1)">Temperature</p>
-                    <select>
+                    <select onchange="ChangeTemperature(this)">
                         <option disabled selected style="display:none"></option>
                         <option>Colder</option>
                         <option>Hotter</option>
@@ -68,13 +71,13 @@
                     <p
                     onmouseover="ShowTips(6)"
                     onmouseleave="ShowTips(-1)">Other Colors</p>
-                    <select>
+                    <select onchange="ChangeOthers(this)">
                         <option disabled selected style="display:none"></option>
                         <option>None</option>
                         <option>Brighter</option>
                         <option>Darker</option>
                     </select>
-                    <select disabled>
+                    <select disabled id="TypesList" onchange="ChangeOtherTypes(this)">
                         <option disabled selected style="display:none"></option>
                         <option>Analogous</option>
                         <option>Complementary</option>
@@ -97,7 +100,8 @@
                 <p id="TipsText"></p>
             </div>
 
-            <button class="ApplyButton" disabled
+            <button class="ApplyButton" id="ApplyButton" disabled
+            onclick="CreatePalette()"
             onmouseover="ShowTips(7)"
             onmouseleave="ShowTips(-1)">Apply</button>
         </div>

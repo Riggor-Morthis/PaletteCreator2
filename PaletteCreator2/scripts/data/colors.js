@@ -9,7 +9,7 @@ class Shade {
     value;
 
     constructor(h, s, v) {
-        this.hue = h;
+        this.hue = (h + 720) % 360;
         this.saturation = s;
         this.value = v;
     }
@@ -34,37 +34,64 @@ class Shade {
         this.Clamp(Math.round(RGB[2]), 0, 255)];
 
         var rString = RGB[0].toString(16);
-        if(rString.length < 2) rString = "0" + rString;
+        if (rString.length < 2) rString = "0" + rString;
         var gString = RGB[1].toString(16);
-        if(gString.length < 2) gString = "0" + gString;
+        if (gString.length < 2) gString = "0" + gString;
         var bString = RGB[2].toString(16);
-        if(bString.length < 2) bString = "0" + bString;
-        
+        if (bString.length < 2) bString = "0" + bString;
+
 
         return "#" + rString + gString + bString;
     }
 
-    FromFakeHSV(h, s, v) {
-        this.hue = this.Clamp(h, 0, 359);
-        this.saturation = Clamp(s, 0, 100) / 100;
-        this.value = this.Clamp(v, 0, 100) / 100;
+    ToRGB(){
+        var rgb = [0, 0, 0];
+
+        var C = this.value * this.saturation;
+        var X = C * (1 - Math.abs((this.hue / 60) % 2 - 1));
+        var m = this.value - C;
+
+        if (this.hue < 60) rgb = [C, X, 0];
+        else if (this.hue < 120) rgb = [X, C, 0];
+        else if (this.hue < 180) rgb = [0, C, X];
+        else if (this.hue < 240) rgb = [0, X, C];
+        else if (this.hue < 300) rgb = [X, 0, C];
+        else rgb = [C, 0, X];
+
+        var RGB = [(rgb[0] + m) * 255, (rgb[1] + m) * 255, (rgb[2] + m) * 255];
+
+        return RGB;
+    }
+
+    FromHex(hex) {
+        var r1 = hex[1] + hex[2];
+        var g1 = hex[3] + hex[4];
+        var b1 = hex[5] + hex[6];
+        var r = parseInt(r1, 16);
+        var g = parseInt(g1, 16);
+        var b = parseInt(b1, 16);
+
+        this.FromRgb(r, g, b);
     }
 
     FromRgb(r, g, b) {
         var r1 = this.Clamp(r, 0, 255) / 255;
         var g1 = this.Clamp(g, 0, 255) / 255;
         var b1 = this.Clamp(b, 0, 255) / 255;
+
         var cMax = Math.max(r1, g1, b1);
         var cMin = Math.min(r1, g1, b1);
         var delta = cMax - cMin;
 
         if (delta == 0) this.hue = 0;
         else if (cMax == r1)
-            this.hue = 60 * ((g1 - b1) / delta % 6);
+            this.hue = 60 * (((g1 - b1) / delta) % 6);
         else if (cMax == b1)
-            this.hue = 60 * ((b1 - r1) / delta + 2);
+            this.hue = 60 * (((b1 - r1) / delta) + 2);
         else if (cMax == g1)
-            this.hue = 60 * ((r1 - g1) / delta + 4);
+            this.hue = 60 * (((r1 - g1) / delta) + 4);
+            
+        this.hue = (this.hue + 720) % 360;
 
         if (cMax == 0) this.saturation = 0;
         else this.saturation = delta / cMax;
@@ -76,6 +103,10 @@ class Shade {
         if (num < min) return min;
         else if (num > max) return max;
         else return num;
+    }
+
+    SetHue(h){
+        this.hue = (h + 720) % 360;
     }
 }
 

@@ -62,6 +62,16 @@ select:disabled:hover {
     margin-left: 6px;
 }
 
+.WindowHeader img {
+    float: left;
+    height: 18px;
+    width: 18px;
+    margin-left: 6px;
+    margin-top: 0px;
+    margin-bottom: 2px;
+    padding: 0px;
+}
+
 .FakeButton {
     float: right;
     width: 20px;
@@ -99,7 +109,7 @@ select:disabled:hover {
     padding: 6px;
 }
 
-.SelectBox p{
+.SelectBox p {
     text-decoration: underline;
 }
 
@@ -121,7 +131,7 @@ select:disabled:hover {
     background-color: transparent;
 }
 
-.PreviewSquare:hover{
+.PreviewSquare:hover {
     cursor: pointer;
 }
 
@@ -137,13 +147,15 @@ select:disabled:hover {
     overflow-y: auto;
 }
 
-.OperationList::-webkit-scrollbar{
+.OperationList::-webkit-scrollbar {
     width: 18px;
 }
-.OperationList::-webkit-scrollbar-track{
+
+.OperationList::-webkit-scrollbar-track {
     background-color: #dee0e2;
 }
-.OperationList::-webkit-scrollbar-thumb{
+
+.OperationList::-webkit-scrollbar-thumb {
     background-color: #c0c4c8;
     border-top: 2px solid #f6f7f7;
     border-left: 2px solid #f6f7f7;
