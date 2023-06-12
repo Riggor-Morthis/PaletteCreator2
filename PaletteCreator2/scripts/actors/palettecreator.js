@@ -6,12 +6,12 @@ var mainContext;
 var mainColors;
 
 async function CreatePalette() {
-    if (currentOthers == 1) await CreateSimplePalette();
-    else if (currentOthersTypes == 1) await CreateAnalogousPalette();
-    else if (currentOthersTypes == 2) await CreateComplementaryPalette();
-    else if (currentOthersTypes == 3) await CreateSplitComplementaryPalette();
-    else if (currentOthersTypes == 4) await CreateTriadicPalette();
-    else if (currentOthersTypes == 5) await CreateTetradicPalette();
+    if (currentOthers == 2) await CreateSimplePalette();
+    else if (currentOthers == 3) await CreateAnalogousPalette();
+    else if (currentOthers == 4) await CreateComplementaryPalette();
+    else if (currentOthers == 5) await CreateSplitComplementaryPalette();
+    else if (currentOthers == 6) await CreateTriadicPalette();
+    else if (currentOthers == 7) await CreateTetradicPalette();
 
     ExportPalette();
 }
@@ -58,9 +58,6 @@ async function CreateAnalogousPalette() {
     //On "imprime"
     await SetImageData(0);
     
-    //On veut des couleurs differentes, donc on change l'index de type
-    if(currentOthers == 2) currentOthers =3;
-    else currentOthers = 2;
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue - 30);
     CreateARow();
@@ -87,9 +84,6 @@ async function CreateComplementaryPalette() {
     //On "imprime"
     await SetImageData(0);
     
-    //On veut des couleurs differentes, donc on change l'index de type
-    if(currentOthers == 2) currentOthers =3;
-    else currentOthers = 2;
     //On passe sur l'autre shade
     mainShade.SetHue(mainShade.hue + 180);
     CreateARow();
@@ -112,9 +106,6 @@ async function CreateSplitComplementaryPalette() {
     //On "imprime"
     await SetImageData(0);
     
-    //On veut des couleurs differentes, donc on change l'index de type
-    if(currentOthers == 2) currentOthers =3;
-    else currentOthers = 2;
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue + 150);
     CreateARow();
@@ -140,9 +131,6 @@ async function CreateTriadicPalette() {
     //On "imprime"
     await SetImageData(0);
     
-    //On veut des couleurs differentes, donc on change l'index de type
-    if(currentOthers == 2) currentOthers =3;
-    else currentOthers = 2;
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue + 120);
     CreateARow();
@@ -169,22 +157,15 @@ async function CreateTetradicPalette() {
     //On "imprime"
     await SetImageData(0);
     
-    //On veut des couleurs differentes, donc on change l'index de type
-    if(currentOthers == 2) currentOthers =3;
-    else currentOthers = 2;
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
     await SetImageData(16);
 
-    if(currentOthers == 2) currentOthers =3;
-    else currentOthers = 2;
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
     await SetImageData(32);
 
-    if(currentOthers == 2) currentOthers =3;
-    else currentOthers = 2;
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
     await SetImageData(48);
@@ -238,13 +219,6 @@ function GetMainShadeIndex() {
         mainShade.saturation <= .1 + .15 * ((mainShade.value - .7) / .3)) mainIndex = 3;
     else if (mainShade.saturation <= mainShade.value) mainIndex = 2;
     else mainIndex = 1;
-
-    if (currentOthers == 2) {
-        if (mainIndex != 3) mainIndex++;
-    }
-    else if (currentOthers == 3) {
-        if (mainIndex != 0) mainIndex--;
-    }
 }
 
 function SetRowHue() {
