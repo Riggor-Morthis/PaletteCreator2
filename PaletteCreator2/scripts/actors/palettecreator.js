@@ -6,12 +6,12 @@ var mainContext;
 var mainColors;
 
 async function CreatePalette() {
-    if (currentOthers == 2) await CreateSimplePalette();
-    else if (currentOthers == 3) await CreateAnalogousPalette();
-    else if (currentOthers == 4) await CreateComplementaryPalette();
-    else if (currentOthers == 5) await CreateSplitComplementaryPalette();
-    else if (currentOthers == 6) await CreateTriadicPalette();
-    else if (currentOthers == 7) await CreateTetradicPalette();
+    if (currentOthers == 1) await CreateSimplePalette();
+    else if (currentOthers == 2) await CreateAnalogousPalette();
+    else if (currentOthers == 3) await CreateComplementaryPalette();
+    else if (currentOthers == 4) await CreateSplitComplementaryPalette();
+    else if (currentOthers == 5) await CreateTriadicPalette();
+    else if (currentOthers == 6) await CreateTetradicPalette();
 
     ExportPalette();
 }
