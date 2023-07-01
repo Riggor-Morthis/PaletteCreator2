@@ -4,7 +4,7 @@
 <head>
     <title>Palette Creator 2</title>
     <link rel="stylesheet" type="text/css" href="css/w95.css" />
-    
+
     <script src="scripts/data/colors.js"></script>
     <script src="scripts/data/tips.js"></script>
 
@@ -30,18 +30,13 @@
         <div class="OperationBody">
             <div class="OperationBoxes">
                 <div class="SelectBox" style="margin-top:0px;">
-                    <p
-                    onmouseover="ShowTips(3)"
-                    onmouseleave="ShowTips(-1)">Colour</p>
-                    <input type="color" class="PreviewSquare" id="PreviewSquare"
-                    onmouseover="ShowTips(2)"
-                    onmouseleave="ShowTips(-1)">
+                    <p onmouseover="ShowTips(3)" onmouseleave="ShowTips(-1)">Colour</p>
+                    <input type="color" class="PreviewSquare" id="PreviewSquare" onmouseover="ShowTips(2)"
+                        onmouseleave="ShowTips(-1)">
                 </div>
 
                 <div class="SelectBox">
-                    <p
-                    onmouseover="ShowTips(4)"
-                    onmouseleave="ShowTips(-1)">Hue Shift</p>
+                    <p onmouseover="ShowTips(4)" onmouseleave="ShowTips(-1)">Hue Shift</p>
                     <div>
                         <select onchange="ChangeHueShift(this)">
                             <option disabled selected style="display:none;"></option>
@@ -56,9 +51,7 @@
                 </div>
 
                 <div class="SelectBox">
-                    <p
-                    onmouseover="ShowTips(5)"
-                    onmouseleave="ShowTips(-1)">Temperature</p>
+                    <p onmouseover="ShowTips(5)" onmouseleave="ShowTips(-1)">Temperature</p>
                     <select onchange="ChangeTemperature(this)">
                         <option disabled selected style="display:none"></option>
                         <option>Colder</option>
@@ -68,9 +61,7 @@
                 </div>
 
                 <div class="SelectBox" style="margin-bottom:0px;">
-                    <p
-                    onmouseover="ShowTips(6)"
-                    onmouseleave="ShowTips(-1)">Other Colors</p>
+                    <p onmouseover="ShowTips(6)" onmouseleave="ShowTips(-1)">Other Colors</p>
                     <select onchange="ChangeOthers(this)">
                         <option disabled selected style="display:none"></option>
                         <option>None</option>
@@ -84,10 +75,14 @@
                 </div>
             </div>
 
-            <div class="OperationList" id ="ColoursButtonList"
-            onmouseover="FaShowTips()"
-            onmouseleave="ShowTips(-1)">
-        </div>
+            <div class="OperationBoxes">
+                <div class="PreviewPalette">
+                    <p>Palette preview</p>
+                </div>
+                <div class="OperationList" id="ColoursButtonList" onmouseover="FaShowTips()"
+                    onmouseleave="ShowTips(-1)">
+                </div>
+            </div>
         </div>
 
         <div class="WindowFooter">
@@ -95,10 +90,8 @@
                 <p id="TipsText"></p>
             </div>
 
-            <button class="ApplyButton" id="ApplyButton" disabled
-            onclick="CreatePalette()"
-            onmouseover="ShowTips(7)"
-            onmouseleave="ShowTips(-1)">Apply</button>
+            <button class="ApplyButton" id="ApplyButton" disabled onclick="CreatePalette()" onmouseover="ShowTips(7)"
+                onmouseleave="ShowTips(-1)">Apply</button>
         </div>
     </div>
 </body>
