@@ -136,7 +136,7 @@ select:disabled:hover {
     cursor: pointer;
 }
 
-.PreviewPalette{
+.PreviewPalette {
     display: inline-block;
     height: 120px;
     width: 201.5px;
@@ -148,13 +148,27 @@ select:disabled:hover {
     border-top: 2px solid #84888c;
 }
 
-.PreviewPalette p{
+.PreviewPalette p {
     text-decoration: underline;
+}
+
+.PreviewPalette .Row {
+    margin-top: 6px;
+    margin-bottom: -3px;
+    margin-left: 12px;
+}
+
+.Row .ShadeRect{
+    display: inline-block;
+    height: 15px;
+    width: 45px;
+    margin-right: -5px;
+    background-color: transparent;
 }
 
 .OperationList {
     display: inline-block;
-    height: 200px;
+    height: 215px;
     padding: 6px;
     background-color: #fcfcfc;
     color: #000000;

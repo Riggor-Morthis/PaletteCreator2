@@ -28,6 +28,7 @@ function ChangeOthers(sel) {
 function UpdateApplyButton() {
     if (currentHueShift != 0 && currentTemperature != 0 && currentOthers != 0) {
         applyButton.removeAttribute("disabled");
+        CreatePalette();
     }
     else {
         applyButton.setAttribute("disabled", true);

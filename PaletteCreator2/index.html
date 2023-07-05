@@ -13,6 +13,7 @@
     <script src="scripts/actors/colorpicker.js"></script>
     <script src="scripts/actors/paletteparameters.js"></script>
     <script src="scripts/actors/palettecreator.js"></script>
+    <script src="scripts/actors/palettepreviewer.js"></script>
 
     <meta charset="utf-8" />
 </head>
@@ -57,7 +58,6 @@
                         <option>Colder</option>
                         <option>Hotter</option>
                     </select>
-
                 </div>
 
                 <div class="SelectBox" style="margin-bottom:0px;">
@@ -78,6 +78,30 @@
             <div class="OperationBoxes">
                 <div class="PreviewPalette">
                     <p>Palette preview</p>
+                    <div class="Row" id="PrevRow1" style="visibility: hidden;">
+                        <div class="ShadeRect" id="Row1Rect1"></div>
+                        <div class="ShadeRect" id="Row1Rect2"></div>
+                        <div class="ShadeRect" id="Row1Rect3"></div>
+                        <div class="ShadeRect" id="Row1Rect4"></div>
+                    </div>
+                    <div class="Row" id="PrevRow2" style="visibility: hidden;">
+                        <div class="ShadeRect" id="Row2Rect1"></div>
+                        <div class="ShadeRect" id="Row2Rect2"></div>
+                        <div class="ShadeRect" id="Row2Rect3"></div>
+                        <div class="ShadeRect" id="Row2Rect4"></div>
+                    </div>
+                    <div class="Row" id="PrevRow3" style="visibility: hidden;">
+                        <div class="ShadeRect" id="Row3Rect1"></div>
+                        <div class="ShadeRect" id="Row3Rect2"></div>
+                        <div class="ShadeRect" id="Row3Rect3"></div>
+                        <div class="ShadeRect" id="Row3Rect4"></div>
+                    </div>
+                    <div class="Row" id="PrevRow4" style="visibility: hidden;">
+                        <div class="ShadeRect" id="Row4Rect1"></div>
+                        <div class="ShadeRect" id="Row4Rect2"></div>
+                        <div class="ShadeRect" id="Row4Rect3"></div>
+                        <div class="ShadeRect" id="Row4Rect4"></div>
+                    </div>
                 </div>
                 <div class="OperationList" id="ColoursButtonList" onmouseover="FaShowTips()"
                     onmouseleave="ShowTips(-1)">
@@ -90,7 +114,7 @@
                 <p id="TipsText"></p>
             </div>
 
-            <button class="ApplyButton" id="ApplyButton" disabled onclick="CreatePalette()" onmouseover="ShowTips(7)"
+            <button class="ApplyButton" id="ApplyButton" disabled onclick="ExportPalette()" onmouseover="ShowTips(7)"
                 onmouseleave="ShowTips(-1)">Apply</button>
         </div>
     </div>

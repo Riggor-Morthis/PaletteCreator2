@@ -12,8 +12,6 @@ async function CreatePalette() {
     else if (currentOthers == 4) await CreateSplitComplementaryPalette();
     else if (currentOthers == 5) await CreateTriadicPalette();
     else if (currentOthers == 6) await CreateTetradicPalette();
-
-    ExportPalette();
 }
 
 function ExportPalette() {
@@ -39,6 +37,7 @@ async function CreateSimplePalette() {
     GetMainShade();
     //On fait un seul row, simple
     CreateARow();
+    ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
     
@@ -55,16 +54,19 @@ async function CreateAnalogousPalette() {
     GetMainShade();
     //On fait un premier row
     CreateARow();
+    ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
     
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue - 30);
     CreateARow();
+    ChangePreviewColour(2);
     await SetImageData(16);
     //Et la deuxieme shade
     mainShade.SetHue(mainShade.hue + 60);
     CreateARow();
+    ChangePreviewColour(3);
     await SetImageData(32);
 
     //On applique a l'image
@@ -81,12 +83,14 @@ async function CreateComplementaryPalette() {
     GetMainShade();
     //On fait un premier row
     CreateARow();
+    ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
     
     //On passe sur l'autre shade
     mainShade.SetHue(mainShade.hue + 180);
     CreateARow();
+    ChangePreviewColour(2);
     await SetImageData(16);
 
     //On applique a l'image
@@ -103,16 +107,19 @@ async function CreateSplitComplementaryPalette() {
     GetMainShade();
     //On fait un premier row
     CreateARow();
+    ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
     
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue + 150);
     CreateARow();
+    ChangePreviewColour(2);
     await SetImageData(16);
     //Et la deuxieme shade
     mainShade.SetHue(mainShade.hue + 60);
     CreateARow();
+    ChangePreviewColour(3);
     await SetImageData(32);
 
     //On applique a l'image
@@ -128,16 +135,19 @@ async function CreateTriadicPalette() {
     GetMainShade();
     //On fait un premier row
     CreateARow();
+    ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
     
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue + 120);
     CreateARow();
+    ChangePreviewColour(2);
     await SetImageData(16);
     //Et la deuxieme shade
     mainShade.SetHue(mainShade.hue + 120);
     CreateARow();
+    ChangePreviewColour(3);
     await SetImageData(32);
 
     //On applique a l'image
@@ -154,20 +164,24 @@ async function CreateTetradicPalette() {
     GetMainShade();
     //On fait un premier row
     CreateARow();
+    ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
     
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
+    ChangePreviewColour(2);
     await SetImageData(16);
 
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
+    ChangePreviewColour(3);
     await SetImageData(32);
 
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
+    ChangePreviewColour(4);
     await SetImageData(48);
 
     //On applique a l'image
@@ -177,6 +191,9 @@ async function CreateTetradicPalette() {
 }
 
 async function CreateCanvas(h) {
+    if(mainCanvas != undefined) mainCanvas.remove();
+    ShowRows(h);
+
     mainCanvas = document.createElement('canvas');
     mainCanvas.width = 4;
     mainCanvas.height = h;
