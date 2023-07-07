@@ -65,6 +65,7 @@ function CreateBackButton(){
 
 function UpdateColorPreview(shade) {
     previewSquare.value = shade.ToHex();
+    UpdateApplyButton()
 }
 
 function FaShowTips() {
