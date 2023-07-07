@@ -32,7 +32,7 @@ function ExportPalette() {
 async function CreateSimplePalette() {
     //On fait un canvas de la bonne taille
     await CreateCanvas(1);
-   
+
     //On se recupere la couleur de l'utilisateur
     GetMainShade();
     //On fait un seul row, simple
@@ -40,7 +40,7 @@ async function CreateSimplePalette() {
     ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
-    
+
     //On applique a l'image
     let imageData = new ImageData(mainColors, 4);
     mainContext.putImageData(imageData, 0, 0);
@@ -49,7 +49,7 @@ async function CreateSimplePalette() {
 async function CreateAnalogousPalette() {
     //On fait un canvas de la bonne taille
     await CreateCanvas(3);
-   
+
     //On se recupere la couleur de l'utilisateur
     GetMainShade();
     //On fait un premier row
@@ -57,7 +57,7 @@ async function CreateAnalogousPalette() {
     ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
-    
+
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue - 30);
     CreateARow();
@@ -78,7 +78,7 @@ async function CreateAnalogousPalette() {
 async function CreateComplementaryPalette() {
     //On fait un canvas de la bonne taille
     await CreateCanvas(2);
-   
+
     //On se recupere la couleur de l'utilisateur
     GetMainShade();
     //On fait un premier row
@@ -86,7 +86,7 @@ async function CreateComplementaryPalette() {
     ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
-    
+
     //On passe sur l'autre shade
     mainShade.SetHue(mainShade.hue + 180);
     CreateARow();
@@ -102,7 +102,7 @@ async function CreateComplementaryPalette() {
 async function CreateSplitComplementaryPalette() {
     //On fait un canvas de la bonne taille
     await CreateCanvas(3);
-   
+
     //On se recupere la couleur de l'utilisateur
     GetMainShade();
     //On fait un premier row
@@ -110,7 +110,7 @@ async function CreateSplitComplementaryPalette() {
     ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
-    
+
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue + 150);
     CreateARow();
@@ -130,7 +130,7 @@ async function CreateSplitComplementaryPalette() {
 async function CreateTriadicPalette() {
     //On fait un canvas de la bonne taille
     await CreateCanvas(3);
-   
+
     //On se recupere la couleur de l'utilisateur
     GetMainShade();
     //On fait un premier row
@@ -138,7 +138,7 @@ async function CreateTriadicPalette() {
     ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
-    
+
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue + 120);
     CreateARow();
@@ -159,7 +159,7 @@ async function CreateTriadicPalette() {
 async function CreateTetradicPalette() {
     //On fait un canvas de la bonne taille
     await CreateCanvas(4);
-   
+
     //On se recupere la couleur de l'utilisateur
     GetMainShade();
     //On fait un premier row
@@ -167,7 +167,7 @@ async function CreateTetradicPalette() {
     ChangePreviewColour(1);
     //On "imprime"
     await SetImageData(0);
-    
+
     //On passe sur la shade suivante
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
@@ -191,7 +191,7 @@ async function CreateTetradicPalette() {
 }
 
 async function CreateCanvas(h) {
-    if(mainCanvas != undefined) mainCanvas.remove();
+    if (mainCanvas != undefined) mainCanvas.remove();
     ShowRows(h);
 
     mainCanvas = document.createElement('canvas');
@@ -231,14 +231,10 @@ function InitializeRow() {
 }
 
 function GetMainShadeIndex() {
-    if(mainShade.saturation <= .25){
-        if(mainShade.value <= .7) mainIndex = 0;
-        else mainIndex = 3;
-    }
-    else{
-        if(mainShade.value <= .7) mainIndex = 1;
-        else mainIndex = 2;
-    }
+    if (mainShade.value < .45) mainIndex = 0;
+    else if (mainShade.value < .7) mainIndex = 1;
+    else if (mainShade.value < .88) mainIndex = 2;
+    else mainIndex = 3;
 }
 
 function SetRowHue() {
@@ -263,17 +259,34 @@ function SetRowSaturation() {
     switch (mainIndex) {
         case 0:
         case 3:
-            mainRow[0].SetSaturation(mainShade.saturation);
-            mainRow[1].SetSaturation(mainShade.saturation * 4);
-            mainRow[2].SetSaturation(mainShade.saturation * 4);
-            mainRow[3].SetSaturation(mainShade.saturation);
+            if (mainShade.saturation <= .8) {
+                mainRow[0].SetSaturation(mainShade.saturation);
+                mainRow[1].SetSaturation(mainShade.saturation * 2);
+                mainRow[2].SetSaturation(mainShade.saturation * 2);
+                mainRow[3].SetSaturation(mainShade.saturation);
+            }
+            else {
+                mainRow[0].SetSaturation(mainShade.saturation);
+                mainRow[1].SetSaturation(mainShade.saturation / 2);
+                mainRow[2].SetSaturation(mainShade.saturation / 2);
+                mainRow[3].SetSaturation(mainShade.saturation);
+            }
+
             break;
         case 1:
         case 2:
-            mainRow[0].SetSaturation(mainShade.saturation / 4);
-            mainRow[1].SetSaturation(mainShade.saturation);
-            mainRow[2].SetSaturation(mainShade.saturation);
-            mainRow[3].SetSaturation(mainShade.saturation / 4);
+            if (mainShade.saturation >= .2) {
+                mainRow[0].SetSaturation(mainShade.saturation / 2);
+                mainRow[1].SetSaturation(mainShade.saturation);
+                mainRow[2].SetSaturation(mainShade.saturation);
+                mainRow[3].SetSaturation(mainShade.saturation / 2);
+            }
+            else {
+                mainRow[0].SetSaturation(mainShade.saturation * 2);
+                mainRow[1].SetSaturation(mainShade.saturation);
+                mainRow[2].SetSaturation(mainShade.saturation);
+                mainRow[3].SetSaturation(mainShade.saturation * 2);
+            }
             break;
     }
 }
@@ -293,7 +306,7 @@ function SetRowValue() {
             break;
         case 1:
             var deltaVal = (mainShade.value - .45) / .25;
-            
+
             var tempVal = deltaVal * .45;
             mainRow[0].SetValue(tempVal);
             mainRow[1].SetValue(mainShade.value);
