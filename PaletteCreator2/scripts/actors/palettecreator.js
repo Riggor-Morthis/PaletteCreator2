@@ -231,15 +231,18 @@ function InitializeRow() {
 }
 
 function GetMainShadeIndex() {
-    if (mainShade.value <= .2 - .05 * mainShade.saturation) mainIndex = 0;
-    else if (mainShade.value >= .7 &&
-        mainShade.saturation <= .1 + .15 * ((mainShade.value - .7) / .3)) mainIndex = 3;
-    else if (mainShade.saturation <= mainShade.value) mainIndex = 2;
-    else mainIndex = 1;
+    if(mainShade.saturation <= .25){
+        if(mainShade.value <= .7) mainIndex = 0;
+        else mainIndex = 3;
+    }
+    else{
+        if(mainShade.value <= .7) mainIndex = 1;
+        else mainIndex = 2;
+    }
 }
 
 function SetRowHue() {
-    var hueStep = currentHueShift * 7;
+    var hueStep = currentHueShift * 5;
     var tempStep;
     if (currentTemperature == 1) {
         if (mainShade.hue < 180) tempStep = 1;
@@ -257,47 +260,20 @@ function SetRowHue() {
 }
 
 function SetRowSaturation() {
-    var ratio = .2 +
-        .15 * ((mainShade.saturation * mainShade.value) * mainShade.saturation + 1);
-
     switch (mainIndex) {
         case 0:
         case 3:
-            if (mainShade.saturation >= .8) {
-                mainRow[0].saturation = mainShade.saturation;
-                mainRow[3].saturation = mainShade.saturation;
-                mainRow[1].saturation = mainShade.saturation -
-                    mainShade.saturation * ratio;
-                mainRow[2].saturation = mainShade.saturation -
-                    mainShade.saturation * ratio;
-            }
-            else {
-                mainRow[0].saturation = mainShade.saturation;
-                mainRow[3].saturation = mainShade.saturation;
-                mainRow[1].saturation = mainShade.saturation +
-                    mainShade.saturation * ratio;
-                mainRow[2].saturation = mainShade.saturation +
-                    mainShade.saturation * ratio;
-            }
+            mainRow[0].SetSaturation(mainShade.saturation);
+            mainRow[1].SetSaturation(mainShade.saturation * 4);
+            mainRow[2].SetSaturation(mainShade.saturation * 4);
+            mainRow[3].SetSaturation(mainShade.saturation);
             break;
         case 1:
         case 2:
-            if (mainShade.saturation <= .2) {
-                mainRow[1].saturation = mainShade.saturation;
-                mainRow[2].saturation = mainShade.saturation;
-                mainRow[0].saturation = mainShade.saturation +
-                    mainShade.saturation * ratio;
-                mainRow[3].saturation = mainShade.saturation +
-                    mainShade.saturation * ratio;
-            }
-            else {
-                mainRow[1].saturation = mainShade.saturation;
-                mainRow[2].saturation = mainShade.saturation;
-                mainRow[0].saturation = mainShade.saturation -
-                    mainShade.saturation * ratio;
-                mainRow[3].saturation = mainShade.saturation -
-                    mainShade.saturation * ratio;
-            }
+            mainRow[0].SetSaturation(mainShade.saturation / 4);
+            mainRow[1].SetSaturation(mainShade.saturation);
+            mainRow[2].SetSaturation(mainShade.saturation);
+            mainRow[3].SetSaturation(mainShade.saturation / 4);
             break;
     }
 }
@@ -305,32 +281,48 @@ function SetRowSaturation() {
 function SetRowValue() {
     switch (mainIndex) {
         case 0:
-            var valueStep = mainShade.value / 5;
-            mainRow[0].value = mainShade.value;
-            mainRow[1].value = mainShade.value + 4 * valueStep;
-            mainRow[2].value = mainShade.value + 7 * valueStep;
-            mainRow[3].value = mainShade.value + 9 * valueStep;
+            var deltaVal = mainShade.value / .45;
+
+            mainRow[0].SetValue(mainShade.value);
+            var tempVal = deltaVal * .25 + .45;
+            mainRow[1].SetValue(tempVal);
+            tempVal = deltaVal * .18 + .7;
+            mainRow[2].SetValue(tempVal);
+            tempVal = deltaVal * .12 + .88;
+            mainRow[3].SetValue(tempVal);
             break;
         case 1:
-            var valueStep = mainShade.value / 9;
-            mainRow[0].value = mainShade.value - 4 * valueStep;
-            mainRow[1].value = mainShade.value;
-            mainRow[2].value = mainShade.value + 3 * valueStep;
-            mainRow[3].value = mainShade.value + 5 * valueStep;
+            var deltaVal = (mainShade.value - .45) / .25;
+            
+            var tempVal = deltaVal * .45;
+            mainRow[0].SetValue(tempVal);
+            mainRow[1].SetValue(mainShade.value);
+            tempVal = deltaVal * .18 + .7;
+            mainRow[2].SetValue(tempVal);
+            tempVal = deltaVal * .12 + .88;
+            mainRow[3].SetValue(tempVal);
             break;
         case 2:
-            var valueStep = mainShade.value / 12;
-            mainRow[0].value = mainShade.value - 7 * valueStep;
-            mainRow[1].value = mainShade.value - 3 * valueStep;
-            mainRow[2].value = mainShade.value;
-            mainRow[3].value = mainShade.value + 2 * valueStep;
+            var deltaVal = (mainShade.value - .7) / .18;
+
+            var tempVal = deltaVal * .45;
+            mainRow[0].SetValue(tempVal);
+            tempVal = deltaVal * .25 + .45;
+            mainRow[1].SetValue(tempVal);
+            mainRow[2].SetValue(mainShade.value);
+            tempVal = deltaVal * .12 + .88;
+            mainRow[3].SetValue(tempVal);
             break;
         case 3:
-            var valueStep = mainShade.value / 14;
-            mainRow[0].value = mainShade.value - 9 * valueStep;
-            mainRow[1].value = mainShade.value - 5 * valueStep;
-            mainRow[2].value = mainShade.value - 2 * valueStep;
-            mainRow[3].value = mainShade.value;
+            var deltaVal = (mainShade.value - .88) / .12;
+
+            var tempVal = deltaVal * .45;
+            mainRow[0].SetValue(tempVal);
+            tempVal = deltaVal * .25 + .45;
+            mainRow[1].SetValue(tempVal);
+            tempVal = deltaVal * .18 + .7;
+            mainRow[2].SetValue(tempVal);
+            mainRow[3].SetValue(mainShade.value);
             break;
     }
 }

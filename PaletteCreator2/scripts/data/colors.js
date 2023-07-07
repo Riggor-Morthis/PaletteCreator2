@@ -71,6 +71,8 @@ class Shade {
         var g = parseInt(g1, 16);
         var b = parseInt(b1, 16);
 
+        console.log(r + " " + g + " " + b + " ");
+
         this.FromRgb(r, g, b);
     }
 
@@ -86,9 +88,9 @@ class Shade {
         if (delta == 0) this.hue = 0;
         else if (cMax == r1)
             this.hue = 60 * (((g1 - b1) / delta) % 6);
-        else if (cMax == b1)
-            this.hue = 60 * (((b1 - r1) / delta) + 2);
         else if (cMax == g1)
+            this.hue = 60 * (((b1 - r1) / delta) + 2);
+        else if (cMax == b1)
             this.hue = 60 * (((r1 - g1) / delta) + 4);
             
         this.hue = (this.hue + 720) % 360;
@@ -107,6 +109,14 @@ class Shade {
 
     SetHue(h){
         this.hue = (h + 720) % 360;
+    }
+
+    SetSaturation(s){
+        this.saturation = this.Clamp(s, 0, 1);
+    }
+
+    SetValue(v){
+        this.value = this.Clamp(v, 0, 1);
     }
 }
 
@@ -133,6 +143,7 @@ class PremadeList {
         new PremadeColor('Munsell', 345, 1.0, 0.94),
         new PremadeColor('Oldrose', 359, 0.33, 0.75),
         new PremadeColor('Red', 0, 1.0, 1.0),
+        new PremadeColor('RedBrown', 0, 0.74, 0.64),
         new PremadeColor('Redwood', 4, 0.49, 0.64),
         new PremadeColor('Rosewood', 353, 1.0, 0.39)
     ];
@@ -143,7 +154,6 @@ class PremadeList {
         new PremadeColor('GreenishYellow', 58, 0.58, 0.93),
         new PremadeColor('Khaki', 37, 0.25, 0.76),
         new PremadeColor('Kobicha', 27, 0.67, 0.41),
-        new PremadeColor('RedBrown', 0, 0.74, 0.64),
         new PremadeColor('Taupe', 27, 0.3, 0.28),
         new PremadeColor('Yellow', 60, 1.0, 1.0)
     ];
