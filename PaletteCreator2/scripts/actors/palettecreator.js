@@ -238,7 +238,7 @@ function GetMainShadeIndex() {
 }
 
 function SetRowHue() {
-    var hueStep = currentHueShift * 5;
+    var hueStep = currentHueShift * 6;
     var tempStep;
     if (currentTemperature == 1) {
         if (mainShade.hue < 180) tempStep = 1;
@@ -259,33 +259,33 @@ function SetRowSaturation() {
     switch (mainIndex) {
         case 0:
         case 3:
-            if (mainShade.saturation <= .8) {
+            if (mainShade.saturation > .8) {
                 mainRow[0].SetSaturation(mainShade.saturation);
-                mainRow[1].SetSaturation(mainShade.saturation * 2);
-                mainRow[2].SetSaturation(mainShade.saturation * 2);
+                mainRow[1].SetSaturation(mainShade.saturation / 4);
+                mainRow[2].SetSaturation(mainShade.saturation / 4);
                 mainRow[3].SetSaturation(mainShade.saturation);
             }
             else {
                 mainRow[0].SetSaturation(mainShade.saturation);
-                mainRow[1].SetSaturation(mainShade.saturation / 2);
-                mainRow[2].SetSaturation(mainShade.saturation / 2);
+                mainRow[1].SetSaturation(mainShade.saturation * 4);
+                mainRow[2].SetSaturation(mainShade.saturation * 4);
                 mainRow[3].SetSaturation(mainShade.saturation);
             }
 
             break;
         case 1:
         case 2:
-            if (mainShade.saturation >= .2) {
-                mainRow[0].SetSaturation(mainShade.saturation / 2);
+            if (mainShade.saturation < .1) {
+                mainRow[0].SetSaturation(mainShade.saturation * 4);
                 mainRow[1].SetSaturation(mainShade.saturation);
                 mainRow[2].SetSaturation(mainShade.saturation);
-                mainRow[3].SetSaturation(mainShade.saturation / 2);
+                mainRow[3].SetSaturation(mainShade.saturation * 4);
             }
             else {
-                mainRow[0].SetSaturation(mainShade.saturation * 2);
+                mainRow[0].SetSaturation(mainShade.saturation / 4);
                 mainRow[1].SetSaturation(mainShade.saturation);
                 mainRow[2].SetSaturation(mainShade.saturation);
-                mainRow[3].SetSaturation(mainShade.saturation * 2);
+                mainRow[3].SetSaturation(mainShade.saturation / 4);
             }
             break;
     }
