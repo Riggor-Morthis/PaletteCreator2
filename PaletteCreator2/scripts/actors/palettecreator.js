@@ -5,6 +5,7 @@ var mainCanvas;
 var mainContext;
 var mainColors;
 var upperValueLimit;
+var tempStep;
 
 async function CreatePalette() {
     if (currentOthers == 1) await CreateSimplePalette();
@@ -63,12 +64,12 @@ async function CreateAnalogousPalette() {
     mainShade.SetHue(mainShade.hue - 30);
     CreateARow();
     ChangePreviewColour(2);
-    await SetImageData(16);
+    await SetImageData(mainRow.length * 4);
     //Et la deuxieme shade
     mainShade.SetHue(mainShade.hue + 60);
     CreateARow();
     ChangePreviewColour(3);
-    await SetImageData(32);
+    await SetImageData(mainRow.length * 8);
 
     //On applique a l'image
     let imageData = new ImageData(mainColors, mainRow.length);
@@ -92,7 +93,7 @@ async function CreateComplementaryPalette() {
     mainShade.SetHue(mainShade.hue + 180);
     CreateARow();
     ChangePreviewColour(2);
-    await SetImageData(16);
+    await SetImageData(mainRow.length * 4);
 
     //On applique a l'image
     let imageData = new ImageData(mainColors, mainRow.length);
@@ -116,12 +117,12 @@ async function CreateSplitComplementaryPalette() {
     mainShade.SetHue(mainShade.hue + 150);
     CreateARow();
     ChangePreviewColour(2);
-    await SetImageData(16);
+    await SetImageData(mainRow.length * 4);
     //Et la deuxieme shade
     mainShade.SetHue(mainShade.hue + 60);
     CreateARow();
     ChangePreviewColour(3);
-    await SetImageData(32);
+    await SetImageData(mainRow.length * 8);
 
     //On applique a l'image
     let imageData = new ImageData(mainColors, mainRow.length);
@@ -144,12 +145,12 @@ async function CreateTriadicPalette() {
     mainShade.SetHue(mainShade.hue + 120);
     CreateARow();
     ChangePreviewColour(2);
-    await SetImageData(16);
+    await SetImageData(mainRow.length * 4);
     //Et la deuxieme shade
     mainShade.SetHue(mainShade.hue + 120);
     CreateARow();
     ChangePreviewColour(3);
-    await SetImageData(32);
+    await SetImageData(mainRow.length * 8);
 
     //On applique a l'image
     let imageData = new ImageData(mainColors, mainRow.length);
@@ -173,17 +174,17 @@ async function CreateTetradicPalette() {
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
     ChangePreviewColour(2);
-    await SetImageData(16);
+    await SetImageData(mainRow.length * 4);
 
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
     ChangePreviewColour(3);
-    await SetImageData(32);
+    await SetImageData(mainRow.length * 8);
 
     mainShade.SetHue(mainShade.hue + 90);
     CreateARow();
     ChangePreviewColour(4);
-    await SetImageData(48);
+    await SetImageData(mainRow.length * 12);
 
     //On applique a l'image
     let imageData = new ImageData(mainColors, mainRow.length);
@@ -194,6 +195,8 @@ async function CreateTetradicPalette() {
 async function CreateCanvas(h) {
     if (mainCanvas != undefined) mainCanvas.remove();
     ShowRows(h);
+
+    tempStep = 0;
 
     mainCanvas = document.createElement('canvas');
     mainCanvas.width = currentRampLength * 2 + 2;
@@ -238,7 +241,7 @@ function InitializeRow() {
 
 function GetMainShadeIndex() {
     var rampLength = currentRampLength * 2 + 2;
-    upperValueLimit = ValueFormula(rampLength);
+    upperValueLimit = ValueFormula(rampLength - 1);
     var currentLimit;
 
     for (i = 0; i < rampLength; i++) {
@@ -248,19 +251,20 @@ function GetMainShadeIndex() {
             return;
         }
     }
-    mainIndex = 4;
 }
 
 function SetRowHue() {
     var hueStep = currentHueShift * 6;
-    var tempStep;
-    if (currentTemperature == 1) {
-        if (mainShade.hue < 180) tempStep = 1;
-        else tempStep = -1;
-    }
-    else {
-        if (mainShade.hue < 180) tempStep = -1;
-        else tempStep = 1;
+
+    if (tempStep == 0) {
+        if (currentTemperature == 1) {
+            if (mainShade.hue < 180) tempStep = 1;
+            else tempStep = -1;
+        }
+        else {
+            if (mainShade.hue < 180) tempStep = -1;
+            else tempStep = 1;
+        }
     }
 
     for (var i = 0; i < mainRow.length; i++) {
@@ -276,29 +280,34 @@ function SetRowSaturation() {
     }
     else halfIndex = mainIndex;
 
-    var satStep = Math.pow(4, 1 / currentRampLength);
+    var satStep = Math.pow(3, 1 / currentRampLength);
     var satBuffer;
 
     for (i = 0; i < mainRow.length / 2; i++) {
-        if (i <= halfIndex) {
-            satBuffer = (mainShade.saturation / satStep) * (halfIndex - i);
+        if (i < halfIndex) {
+            satBuffer = mainShade.saturation / (satStep * halfIndex - i);
         }
-        else {
-            satBuffer = (mainShade.saturation * satStep) * (i - halfIndex);
+        else if(i > halfIndex){
+            satBuffer = mainShade.saturation * (satStep * i - halfIndex);
         }
+        else{
+            satBuffer = mainShade.saturation;
+        }
+
         mainRow[i].SetSaturation(satBuffer);
         mainRow[mainRow.length - 1 - i].SetSaturation(satBuffer);
     }
 }
 
 function SetRowValue() {
+
     var mainValueDelta = (mainShade.value - NormalizedFormula(mainIndex))
-    / (NormalizedFormula(mainIndex + 1) - NormalizedFormula(mainIndex));
+        / (NormalizedFormula(mainIndex + 1) - NormalizedFormula(mainIndex));
     var valBuffer;
 
-    for(i = 0; i < mainRow.length; i++){
+    for (i = 0; i < mainRow.length; i++) {
         valBuffer = mainValueDelta * (NormalizedFormula(i + 1) - NormalizedFormula(i))
-        + NormalizedFormula(i);
+            + NormalizedFormula(i);
         mainRow[i].SetValue(valBuffer);
     }
 }
