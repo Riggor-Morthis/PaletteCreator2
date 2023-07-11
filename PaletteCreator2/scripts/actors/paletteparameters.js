@@ -1,3 +1,4 @@
+var currentRampLength = 0;
 var currentHueShift = 0;
 var currentTemperature = 0;
 var currentOthers = 0;
@@ -8,6 +9,11 @@ var applyButton;
 function PpInitialize() {
     otherTypesList = document.getElementById("TypesList");
     applyButton = document.getElementById("ApplyButton");
+}
+
+function ChangeRampLength(sel){
+    currentRampLength = sel.selectedIndex;
+    UpdateApplyButton();
 }
 
 function ChangeHueShift(sel) {
@@ -26,7 +32,7 @@ function ChangeOthers(sel) {
 }
 
 function UpdateApplyButton() {
-    if (currentHueShift != 0 && currentTemperature != 0 && currentOthers != 0) {
+    if (currentRampLength != 0 && currentHueShift != 0 && currentTemperature != 0 && currentOthers != 0) {
         applyButton.removeAttribute("disabled");
         CreatePalette();
     }

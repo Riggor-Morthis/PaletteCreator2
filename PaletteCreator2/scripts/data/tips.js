@@ -7,6 +7,8 @@ class Tips{
         'How far apart are the colors',
         'Go towards colder or hotter tones',
         'Include other colors in the palette',
-        'Export your palette'
+        'Export your palette',
+        'Number of colors in each ramp',
+        'The generated palette'
     ];
 }

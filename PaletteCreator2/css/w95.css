@@ -8,6 +8,7 @@ body {
     font-family: W95;
     font-size: 22px;
     color: #000000;
+    margin: 0px;
 }
 
 p {
@@ -41,7 +42,7 @@ select:disabled:hover {
 .WindowBody {
     display: block;
     max-width: 455px;
-    max-height: 455px;
+    max-height: 560px;
     background-color: #c0c4c8;
     border-top: 2px solid #fcfcfc;
     border-left: 2px solid #fcfcfc;
@@ -86,15 +87,13 @@ select:disabled:hover {
 
 .OperationBody {
     display: flex;
-    height: 363px;
+    height: 463px;
     margin-top: 8px;
     margin-bottom: 8px;
 }
 
 .OperationBoxes {
     display: inline-block;
-    width: 219.5px;
-    height: 373px;
     margin-left: 5px;
     margin-right: 5px;
 }
@@ -138,7 +137,7 @@ select:disabled:hover {
 
 .PreviewPalette {
     display: inline-block;
-    height: 120px;
+    height: 105px;
     width: 201.5px;
     margin-bottom: 10px;
     padding: 6px;
@@ -152,13 +151,16 @@ select:disabled:hover {
     text-decoration: underline;
 }
 
+.PreviewPalette p:hover{
+    cursor: help;
+}
+
 .PreviewPalette .Row {
-    margin-top: 6px;
     margin-bottom: -3px;
     margin-left: 12px;
 }
 
-.Row .ShadeRect{
+.Row .ShadeRect {
     display: inline-block;
     height: 15px;
     width: 45px;
@@ -168,7 +170,7 @@ select:disabled:hover {
 
 .OperationList {
     display: inline-block;
-    height: 215px;
+    height: 326px;
     padding: 6px;
     background-color: #fcfcfc;
     color: #000000;

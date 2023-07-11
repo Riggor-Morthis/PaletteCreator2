@@ -31,6 +31,18 @@
         <div class="OperationBody">
             <div class="OperationBoxes">
                 <div class="SelectBox" style="margin-top:0px;">
+                    <p onmouseover="ShowTips(8)" onmouseleave="ShowTips(-1)">Ramp Length</p>
+                    <div>
+                        <select onchange="ChangeRampLength(this)">
+                            <option disabled selected style="display:none;"></option>
+                            <option>4 colors</option>
+                            <option>6 colors</option>
+                            <option>8 colors</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="SelectBox">
                     <p onmouseover="ShowTips(3)" onmouseleave="ShowTips(-1)">Colour</p>
                     <input type="color" class="PreviewSquare" id="PreviewSquare" onmouseover="ShowTips(2)"
                         onmouseleave="ShowTips(-1)" onchange="UpdateApplyButton()">
@@ -48,7 +60,6 @@
                             <option>Ultra-wide</option>
                         </select>
                     </div>
-
                 </div>
 
                 <div class="SelectBox">
@@ -77,30 +88,46 @@
 
             <div class="OperationBoxes">
                 <div class="PreviewPalette">
-                    <p>Palette preview</p>
-                    <div class="Row" id="PrevRow1" style="visibility: hidden;">
-                        <div class="ShadeRect" id="Row1Rect1"></div>
-                        <div class="ShadeRect" id="Row1Rect2"></div>
-                        <div class="ShadeRect" id="Row1Rect3"></div>
-                        <div class="ShadeRect" id="Row1Rect4"></div>
+                    <p onmouseover="ShowTips(9)" onmouseleave="ShowTips(-1)">Preview</p>
+                    <div class="Row" id="PrevRow1" style="margin-top: 8px;">
+                        <div class="ShadeRect" id="Row1Rect1" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row1Rect2" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row1Rect3" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row1Rect4" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row1Rect5" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row1Rect6" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row1Rect7" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row1Rect8" style="display: none;"></div>
                     </div>
-                    <div class="Row" id="PrevRow2" style="visibility: hidden;">
-                        <div class="ShadeRect" id="Row2Rect1"></div>
-                        <div class="ShadeRect" id="Row2Rect2"></div>
-                        <div class="ShadeRect" id="Row2Rect3"></div>
-                        <div class="ShadeRect" id="Row2Rect4"></div>
+                    <div class="Row" id="PrevRow2">
+                        <div class="ShadeRect" id="Row2Rect1" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row2Rect2" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row2Rect3" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row2Rect4" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row2Rect5" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row2Rect6" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row2Rect7" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row2Rect8" style="display: none;"></div>
                     </div>
-                    <div class="Row" id="PrevRow3" style="visibility: hidden;">
-                        <div class="ShadeRect" id="Row3Rect1"></div>
-                        <div class="ShadeRect" id="Row3Rect2"></div>
-                        <div class="ShadeRect" id="Row3Rect3"></div>
-                        <div class="ShadeRect" id="Row3Rect4"></div>
+                    <div class="Row" id="PrevRow3">
+                        <div class="ShadeRect" id="Row3Rect1" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row3Rect2" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row3Rect3" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row3Rect4" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row3Rect5" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row3Rect6" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row3Rect7" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row3Rect8" style="display: none;"></div>
                     </div>
-                    <div class="Row" id="PrevRow4" style="visibility: hidden;">
-                        <div class="ShadeRect" id="Row4Rect1"></div>
-                        <div class="ShadeRect" id="Row4Rect2"></div>
-                        <div class="ShadeRect" id="Row4Rect3"></div>
-                        <div class="ShadeRect" id="Row4Rect4"></div>
+                    <div class="Row" id="PrevRow4">
+                        <div class="ShadeRect" id="Row4Rect1" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row4Rect2" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row4Rect3" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row4Rect4" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row4Rect5" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row4Rect6" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row4Rect7" style="display: none;"></div>
+                        <div class="ShadeRect" id="Row4Rect8" style="display: none;"></div>
                     </div>
                 </div>
                 <div class="OperationList" id="ColoursButtonList" onmouseover="FaShowTips()"

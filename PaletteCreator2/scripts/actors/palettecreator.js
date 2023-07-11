@@ -4,6 +4,7 @@ var mainRow;
 var mainCanvas;
 var mainContext;
 var mainColors;
+var upperValueLimit;
 
 async function CreatePalette() {
     if (currentOthers == 1) await CreateSimplePalette();
@@ -42,7 +43,7 @@ async function CreateSimplePalette() {
     await SetImageData(0);
 
     //On applique a l'image
-    let imageData = new ImageData(mainColors, 4);
+    let imageData = new ImageData(mainColors, mainRow.length);
     mainContext.putImageData(imageData, 0, 0);
 }
 
@@ -70,7 +71,7 @@ async function CreateAnalogousPalette() {
     await SetImageData(32);
 
     //On applique a l'image
-    let imageData = new ImageData(mainColors, 4);
+    let imageData = new ImageData(mainColors, mainRow.length);
     mainContext.putImageData(imageData, 0, 0);
 
 }
@@ -94,7 +95,7 @@ async function CreateComplementaryPalette() {
     await SetImageData(16);
 
     //On applique a l'image
-    let imageData = new ImageData(mainColors, 4);
+    let imageData = new ImageData(mainColors, mainRow.length);
     mainContext.putImageData(imageData, 0, 0);
 
 }
@@ -123,7 +124,7 @@ async function CreateSplitComplementaryPalette() {
     await SetImageData(32);
 
     //On applique a l'image
-    let imageData = new ImageData(mainColors, 4);
+    let imageData = new ImageData(mainColors, mainRow.length);
     mainContext.putImageData(imageData, 0, 0);
 }
 
@@ -151,7 +152,7 @@ async function CreateTriadicPalette() {
     await SetImageData(32);
 
     //On applique a l'image
-    let imageData = new ImageData(mainColors, 4);
+    let imageData = new ImageData(mainColors, mainRow.length);
     mainContext.putImageData(imageData, 0, 0);
 
 }
@@ -185,7 +186,7 @@ async function CreateTetradicPalette() {
     await SetImageData(48);
 
     //On applique a l'image
-    let imageData = new ImageData(mainColors, 4);
+    let imageData = new ImageData(mainColors, mainRow.length);
     mainContext.putImageData(imageData, 0, 0);
 
 }
@@ -195,7 +196,7 @@ async function CreateCanvas(h) {
     ShowRows(h);
 
     mainCanvas = document.createElement('canvas');
-    mainCanvas.width = 4;
+    mainCanvas.width = currentRampLength * 2 + 2;
     mainCanvas.height = h;
     mainContext = mainCanvas.getContext('2d');
     mainColors = new Uint8ClampedArray((mainCanvas.width * mainCanvas.height) * 4);
@@ -216,7 +217,7 @@ function CreateARow() {
 }
 
 async function SetImageData(offset) {
-    for (var i = 0; i < 16; i += 4) {
+    for (var i = 0; i < mainRow.length * 4; i += 4) {
         var rgbCode = mainRow[i / 4].ToRGB();
         mainColors[i + offset + 0] = rgbCode[0];
         mainColors[i + offset + 1] = rgbCode[1];
@@ -226,15 +227,28 @@ async function SetImageData(offset) {
 }
 
 function InitializeRow() {
-    mainRow = [new Shade(0, 0, 0), new Shade(0, 0, 0),
+    if (currentRampLength == 1) mainRow = [new Shade(0, 0, 0), new Shade(0, 0, 0),
+    new Shade(0, 0, 0), new Shade(0, 0, 0)];
+    else if (currentRampLength == 2) mainRow = [new Shade(0, 0, 0), new Shade(0, 0, 0),
+    new Shade(0, 0, 0), new Shade(0, 0, 0), new Shade(0, 0, 0), new Shade(0, 0, 0)];
+    else if (currentRampLength == 3) mainRow = [new Shade(0, 0, 0), new Shade(0, 0, 0),
+    new Shade(0, 0, 0), new Shade(0, 0, 0), new Shade(0, 0, 0), new Shade(0, 0, 0),
     new Shade(0, 0, 0), new Shade(0, 0, 0)];
 }
 
 function GetMainShadeIndex() {
-    if (mainShade.value < .45) mainIndex = 0;
-    else if (mainShade.value < .7) mainIndex = 1;
-    else if (mainShade.value < .88) mainIndex = 2;
-    else mainIndex = 3;
+    var rampLength = currentRampLength * 2 + 2;
+    upperValueLimit = ValueFormula(rampLength);
+    var currentLimit;
+
+    for (i = 0; i < rampLength; i++) {
+        currentLimit = NormalizedFormula(i);
+        if (mainShade.value <= currentLimit) {
+            mainIndex = i;
+            return;
+        }
+    }
+    mainIndex = 4;
 }
 
 function SetRowHue() {
@@ -249,93 +263,50 @@ function SetRowHue() {
         else tempStep = 1;
     }
 
-    for (var i = 0; i < 4; i++) {
+    for (var i = 0; i < mainRow.length; i++) {
         mainRow[i].SetHue(mainShade.hue +
             (i - mainIndex) * tempStep * hueStep);
     }
 }
 
 function SetRowSaturation() {
-    switch (mainIndex) {
-        case 0:
-        case 3:
-            if (mainShade.saturation > .8) {
-                mainRow[0].SetSaturation(mainShade.saturation);
-                mainRow[1].SetSaturation(mainShade.saturation / 4);
-                mainRow[2].SetSaturation(mainShade.saturation / 4);
-                mainRow[3].SetSaturation(mainShade.saturation);
-            }
-            else {
-                mainRow[0].SetSaturation(mainShade.saturation);
-                mainRow[1].SetSaturation(mainShade.saturation * 4);
-                mainRow[2].SetSaturation(mainShade.saturation * 4);
-                mainRow[3].SetSaturation(mainShade.saturation);
-            }
+    var halfIndex;
+    if (mainIndex >= mainRow.length / 2) {
+        halfIndex = (mainRow.length - 1) - mainIndex;
+    }
+    else halfIndex = mainIndex;
 
-            break;
-        case 1:
-        case 2:
-            if (mainShade.saturation < .1) {
-                mainRow[0].SetSaturation(mainShade.saturation * 4);
-                mainRow[1].SetSaturation(mainShade.saturation);
-                mainRow[2].SetSaturation(mainShade.saturation);
-                mainRow[3].SetSaturation(mainShade.saturation * 4);
-            }
-            else {
-                mainRow[0].SetSaturation(mainShade.saturation / 4);
-                mainRow[1].SetSaturation(mainShade.saturation);
-                mainRow[2].SetSaturation(mainShade.saturation);
-                mainRow[3].SetSaturation(mainShade.saturation / 4);
-            }
-            break;
+    var satStep = Math.pow(4, 1 / currentRampLength);
+    var satBuffer;
+
+    for (i = 0; i < mainRow.length / 2; i++) {
+        if (i <= halfIndex) {
+            satBuffer = (mainShade.saturation / satStep) * (halfIndex - i);
+        }
+        else {
+            satBuffer = (mainShade.saturation * satStep) * (i - halfIndex);
+        }
+        mainRow[i].SetSaturation(satBuffer);
+        mainRow[mainRow.length - 1 - i].SetSaturation(satBuffer);
     }
 }
 
 function SetRowValue() {
-    switch (mainIndex) {
-        case 0:
-            var deltaVal = mainShade.value / .45;
+    var mainValueDelta = (mainShade.value - NormalizedFormula(mainIndex))
+    / (NormalizedFormula(mainIndex + 1) - NormalizedFormula(mainIndex));
+    var valBuffer;
 
-            mainRow[0].SetValue(mainShade.value);
-            var tempVal = deltaVal * .25 + .45;
-            mainRow[1].SetValue(tempVal);
-            tempVal = deltaVal * .18 + .7;
-            mainRow[2].SetValue(tempVal);
-            tempVal = deltaVal * .12 + .88;
-            mainRow[3].SetValue(tempVal);
-            break;
-        case 1:
-            var deltaVal = (mainShade.value - .45) / .25;
-
-            var tempVal = deltaVal * .45;
-            mainRow[0].SetValue(tempVal);
-            mainRow[1].SetValue(mainShade.value);
-            tempVal = deltaVal * .18 + .7;
-            mainRow[2].SetValue(tempVal);
-            tempVal = deltaVal * .12 + .88;
-            mainRow[3].SetValue(tempVal);
-            break;
-        case 2:
-            var deltaVal = (mainShade.value - .7) / .18;
-
-            var tempVal = deltaVal * .45;
-            mainRow[0].SetValue(tempVal);
-            tempVal = deltaVal * .25 + .45;
-            mainRow[1].SetValue(tempVal);
-            mainRow[2].SetValue(mainShade.value);
-            tempVal = deltaVal * .12 + .88;
-            mainRow[3].SetValue(tempVal);
-            break;
-        case 3:
-            var deltaVal = (mainShade.value - .88) / .12;
-
-            var tempVal = deltaVal * .45;
-            mainRow[0].SetValue(tempVal);
-            tempVal = deltaVal * .25 + .45;
-            mainRow[1].SetValue(tempVal);
-            tempVal = deltaVal * .18 + .7;
-            mainRow[2].SetValue(tempVal);
-            mainRow[3].SetValue(mainShade.value);
-            break;
+    for(i = 0; i < mainRow.length; i++){
+        valBuffer = mainValueDelta * (NormalizedFormula(i + 1) - NormalizedFormula(i))
+        + NormalizedFormula(i);
+        mainRow[i].SetValue(valBuffer);
     }
+}
+
+function ValueFormula(i) {
+    return .18 * i + .3;
+}
+
+function NormalizedFormula(i) {
+    return ValueFormula(i) / upperValueLimit;
 }

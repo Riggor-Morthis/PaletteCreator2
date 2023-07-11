@@ -71,8 +71,6 @@ class Shade {
         var g = parseInt(g1, 16);
         var b = parseInt(b1, 16);
 
-        console.log(r + " " + g + " " + b + " ");
-
         this.FromRgb(r, g, b);
     }
 
